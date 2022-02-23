@@ -17,15 +17,15 @@ public class Main {
             while (in.hasNext())
             {
                 int totalComps = in.nextInt();
-                int connections = in.nextInt();
+                long connections = in.nextLong();
                 int connectionsDestroyed = in.nextInt();
                 //set up the data structures needed
                 HashMap<Integer,edge> edges = new HashMap<>();
                 Main mySet = new Main(totalComps+1);
                 //boolean[][] connectionGraph = new boolean[totalComps+2][totalComps+2];
                 int[] connectionsLineDestroyed = new int[connectionsDestroyed+1];
-                int[] lines1 =  new int[totalComps+2];
-                int[] lines2 = new int[totalComps+2];
+                int[] lines1 =  new int[(int) connections+2];
+                int[] lines2 = new int[(int) connections+2];
 
                 //iinitialize variables needed later
                 int connection1= 0;
@@ -69,6 +69,7 @@ public class Main {
                 counter++;
                 allTotals[counter] = total;
                 //do the same thing now for every connection I gotta do
+
                 for (int i = connectionsDestroyed; i > 0; i--)
                 {
                      total = 0;
@@ -128,13 +129,27 @@ public class Main {
 
     // Returns the root node of the tree storing id.
     public int find(int id) {
-
         // Go up tree until there's no parent.
-        while (id != parents[id].getID())
-            id = (int) parents[id].getID();
+        if (id == parents[id].getID())
+            return id;
+        // Find my parent's root.
+        int res = find(parents[id].getID());
 
-        return id;
+        // if res is not mu existing parent, make it parent
+        if (res != parents[id].getID())
+        {
+            // Attach me directly to the root of my tree.
+            parents[id].setID(res);
+
+
+        }
+        return res;
     }
+       // while (id != parents[id].getID())
+            //id =  parents[id].getID();
+
+        //return id;
+    //}
 
     public boolean union(int id1, int id2) {
 
@@ -168,6 +183,7 @@ class pair {
     //you could argue i don't need height for this but i don't wanna fuck with that
     private int ID;
     private int height;
+
 
     public pair(int myNum, int myHeight) {
         ID = myNum;
