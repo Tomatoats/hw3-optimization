@@ -1,0 +1,5 @@
+for unionizaion, we can use lines for the for loops to drastically cut down time
+implement size in my disjoint sets and use that instead, instead of goin through all computers, just go through the sets
+do path compression 
+write a connectivity when needed
+create an edge  class with v1, v2, and a boolean, make an array of edges
